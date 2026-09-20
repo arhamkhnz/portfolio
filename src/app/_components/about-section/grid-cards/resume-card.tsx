@@ -1,12 +1,12 @@
 import { FaDownload } from "react-icons/fa6";
 
 export default function ResumeCard() {
-  const path = `/cv/Resume_Arham_Khan.pdf`;
+  const path = "/cv/resume-arham-khan.pdf";
 
   const _handleDownload = () => {
     const link = document.createElement("a");
     link.href = path;
-    link.setAttribute("download", "Resume_Arham_Khan.pdf");
+    link.setAttribute("download", "resume-arham-khan.pdf");
     link.setAttribute("target", "_blank");
     document.body.appendChild(link);
     link.click();

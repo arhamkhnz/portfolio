@@ -1,52 +1,52 @@
 import localFont from "next/font/local";
 
 const funkyStar = localFont({
-  src: "./Funky-Star.otf",
+  src: "./funky-star-font.otf",
   variable: "--font-local-funky-star",
 });
 
 const smokeyBrown = localFont({
-  src: "./Smokey-Brown.otf",
+  src: "./smokey-brown-font.otf",
   variable: "--font-local-smokey-brown",
 });
 
 const lowpoly = localFont({
-  src: "./Lowpoly.otf",
+  src: "./lowpoly-font.otf",
   variable: "--font-local-lowpoly",
 });
 
 const critRace = localFont({
-  src: "./crit-race.otf",
+  src: "./crit-race-font.otf",
   variable: "--font-local-crit-race",
 });
 
 const letterSketch = localFont({
-  src: "./letter-sketch.otf",
+  src: "./letter-sketch-font.otf",
   variable: "--font-local-letter-sketch",
 });
 
 const okezoneChamoon = localFont({
-  src: "./okezone-chamoon.otf",
+  src: "./okezone-chamoon-font.otf",
   variable: "--font-local-okezone-chamoon",
 });
 
 const sinteca = localFont({
-  src: "./Sinteca-Regular.otf",
+  src: "./sinteca-regular-font.otf",
   variable: "--font-local-sinteca",
 });
 
 const stinker = localFont({
-  src: "./Stinker.otf",
+  src: "./stinker-font.otf",
   variable: "--font-local-stinker",
 });
 
 const helixa = localFont({
-  src: "./Helixa.otf",
+  src: "./helixa-font.otf",
   variable: "--font-local-helixa",
 });
 
 const helixaBold = localFont({
-  src: "./Helixa-Bold.otf",
+  src: "./helixa-bold-font.otf",
   variable: "--font-local-helixa-bold",
 });
 

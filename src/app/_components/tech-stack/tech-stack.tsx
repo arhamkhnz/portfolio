@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 import Matter from "matter-js";
 
-import { TechStackData } from "../../_data/TechStackData";
+import { TechStackData } from "../../_data/tech-stack-data";
 
 // Define the base path for the textures
 const basePath = `${process.env.NEXT_PUBLIC_ASSET_URL}/images/technologies/`;

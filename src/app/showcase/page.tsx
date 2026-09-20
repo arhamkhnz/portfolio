@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function page() {
+export default function ShowcasePage() {
   return (
     <div className="relative flex h-dvh w-screen items-center justify-center pb-40 lg:pb-0">
       <Link href="/" className="absolute top-5 left-5 font-helixa-bold text-white text-xl">

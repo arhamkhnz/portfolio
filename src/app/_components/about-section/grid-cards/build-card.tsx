@@ -1,4 +1,4 @@
-import { whatIBuild } from "../../../_data/WhatIBuild";
+import { whatIBuild } from "../../../_data/what-i-build";
 
 export default function BuildCard() {
   return (
