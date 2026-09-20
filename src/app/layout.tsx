@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Cursor } from "@/components/cursor";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,7 +24,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full cursor-none flex-col bg-background font-sans text-foreground">
+        <div className="fixed -inset-1/2 z-[-1] animate-[bg-animation_0.2s_infinite] bg-[url('/images/noise-transparent.png')] bg-repeat opacity-90" />
+        <Cursor />
+        {children}
+      </body>
     </html>
   );
 }
