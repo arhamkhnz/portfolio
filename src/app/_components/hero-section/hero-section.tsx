@@ -21,12 +21,12 @@ export default function HeroSection() {
         </div>
       </div>
       <p className="absolute top-5 left-5 font-google-sans-flex font-medium text-white text-xl">
-        Arham Khan<span className="text-4xl text-orange">.</span>
+        Arham Khan<span className="text-4xl text-red-500">.</span>
       </p>
 
       <Link
         href="/showcase"
-        className="absolute top-5 right-5 rounded-full border-2 border-orange px-8 py-2 font-google-sans-flex font-medium text-orange transition duration-300 ease-in-out hover:bg-orange hover:text-white"
+        className="absolute top-5 right-5 rounded-full border-2 border-red-500 px-8 py-2 font-google-sans-flex font-medium text-red-500 transition duration-300 ease-in-out hover:bg-red-500 hover:text-white"
       >
         Showcase
       </Link>

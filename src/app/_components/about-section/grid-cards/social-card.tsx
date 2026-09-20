@@ -39,12 +39,12 @@ export default function SocialCard() {
       </div>
 
       <div className="mt-4 grid w-full grid-cols-4 justify-center gap-4 md:grid-cols-8 lg:grid-cols-4">
-        {socials.map((social, index) => (
+        {socials.map((social) => (
           <a
-            key={index}
+            key={social.href}
             href={social.href}
             target="_blank"
-            className="group flex aspect-square size-12 items-center justify-center rounded-lg text-white shadow-xl ring-1 ring-white/10 transition-all duration-300 hover:bg-black hover:text-orange hover:ring-white/20"
+            className="group flex aspect-square size-12 items-center justify-center rounded-lg text-white shadow-xl ring-1 ring-white/10 transition-all duration-300 hover:bg-black hover:text-red-500 hover:ring-white/20"
             rel="noopener"
           >
             {social.icon}

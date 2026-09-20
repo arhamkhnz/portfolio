@@ -26,9 +26,21 @@ export function Cursor() {
       return () => document.body.classList.remove("hide-cursor");
     }
 
+    let hasPointerPosition = false;
+
     const onMouseMove = (event: MouseEvent) => {
-      animate(bigBall, { x: event.pageX - 15, y: event.pageY - 15 }, { type: "tween", duration: 0.4, ease: power1Out });
-      animate(smallBall, { x: event.pageX - 5, y: event.pageY - 7 }, { type: "tween", duration: 0.1, ease: power1Out });
+      const bigBallPosition = { x: event.clientX - 15, y: event.clientY - 15 };
+      const smallBallPosition = { x: event.clientX - 5, y: event.clientY - 7 };
+
+      if (!hasPointerPosition) {
+        hasPointerPosition = true;
+        animate(bigBall, { ...bigBallPosition, opacity: 1 }, { duration: 0 });
+        animate(smallBall, { ...smallBallPosition, opacity: 1 }, { duration: 0 });
+        return;
+      }
+
+      animate(bigBall, bigBallPosition, { type: "tween", duration: 0.4, ease: power1Out });
+      animate(smallBall, smallBallPosition, { type: "tween", duration: 0.1, ease: power1Out });
     };
 
     const onMouseHover = () => {
@@ -56,13 +68,19 @@ export function Cursor() {
 
   return (
     <div ref={scope} className="pointer-events-none" aria-hidden="true">
-      <div ref={bigBallRef} className="fixed top-0 left-0 z-[9999] mix-blend-difference [.hide-cursor_&]:hidden">
-        <svg height="30" width="30">
+      <div
+        ref={bigBallRef}
+        className="fixed top-0 left-0 z-9999 in-[.hide-cursor]:hidden opacity-0 mix-blend-difference"
+      >
+        <svg aria-hidden="true" focusable="false" height="30" width="30">
           <circle className="fill-[#f7f8fa]" cx="15" cy="15" r="12" strokeWidth="0" />
         </svg>
       </div>
-      <div ref={smallBallRef} className="fixed top-0 left-0 z-[9999] mix-blend-difference [.hide-cursor_&]:hidden">
-        <svg height="10" width="10">
+      <div
+        ref={smallBallRef}
+        className="fixed top-0 left-0 z-9999 in-[.hide-cursor]:hidden opacity-0 mix-blend-difference"
+      >
+        <svg aria-hidden="true" focusable="false" height="10" width="10">
           <circle className="fill-[#f7f8fa]" cx="5" cy="5" r="4" strokeWidth="0" />
         </svg>
       </div>

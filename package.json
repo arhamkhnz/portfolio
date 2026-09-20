@@ -10,6 +10,7 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@thesvg/icons": "^3.3.8",
     "@vercel/analytics": "^2.0.1",
     "cn": "^0.3.0",
     "matter-js": "^0.20.0",

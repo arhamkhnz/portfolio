@@ -19,7 +19,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <div className="mx-auto mt-2 mb-8 max-w-[1410px] rounded-xl p-4 lg:p-0">
+    <div className="mx-auto mt-2 mb-8 max-w-352.5 rounded-xl p-4 lg:p-0">
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {introCards.map((card) => (
           <Card key={card.key} type="plain">

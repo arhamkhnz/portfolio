@@ -12,11 +12,11 @@ export default function Card({ children, type, className = "" }: CardProps) {
   const getCardClasses = (cardType: CardProps["type"]) => {
     switch (cardType) {
       case "rounded":
-        return "rounded-3xl border border-darkGrey-100 bg-darkGrey-100";
+        return "rounded-3xl border border-white/10 bg-white/10";
       case "plain":
-        return "border-[0.5px] border-darkGrey-500";
+        return "border-[0.5px] border-white/50";
       default:
-        return "rounded-3xl border border-darkGrey-100 bg-darkGrey-100";
+        return "rounded-3xl border border-white/10 bg-white/10";
     }
   };
 
@@ -26,19 +26,19 @@ export default function Card({ children, type, className = "" }: CardProps) {
 
       {type === "plain" && (
         <>
-          <div className="absolute top-[-12px] left-[-12px]">
+          <div className="absolute -top-3 -left-3">
             <HiOutlinePlus color="white" size={24} />
           </div>
 
-          <div className="absolute top-[-12px] right-[-12px]">
+          <div className="absolute -top-3 -right-3">
             <HiOutlinePlus color="white" size={24} />
           </div>
 
-          <div className="absolute bottom-[-12px] left-[-12px]">
+          <div className="absolute -bottom-3 -left-3">
             <HiOutlinePlus color="white" size={24} />
           </div>
 
-          <div className="absolute right-[-12px] bottom-[-12px]">
+          <div className="absolute -right-3 -bottom-3">
             <HiOutlinePlus color="white" size={24} />
           </div>
         </>

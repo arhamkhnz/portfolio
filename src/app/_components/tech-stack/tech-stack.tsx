@@ -2,163 +2,208 @@ import { useEffect, useRef } from "react";
 
 import Matter from "matter-js";
 
-import { TechStackData } from "../../_data/tech-stack-data";
+import { TechStackData, type TechStackItem } from "../../_data/tech-stack-data";
 
-const assetUrl = process.env.NEXT_PUBLIC_ASSET_URL?.replace(/\/+$/, "") ?? "";
-const textureBasePath = `${assetUrl}/images/technologies`;
+const SCENE_HEIGHT = 240;
+const BOUNDARY_THICKNESS = 80;
+const BODY_RADIUS = 20;
+
+const FALLBACK_ICON_COLOR = "F7F8FA";
+
+type MouseWithHandlers = Matter.Mouse & {
+  mousedown: EventListener;
+  mousemove: EventListener;
+  mouseup: EventListener;
+  mousewheel: EventListener;
+};
+
+function removeMouseListeners(mouse: MouseWithHandlers) {
+  const { element } = mouse;
+
+  element.removeEventListener("mousemove", mouse.mousemove);
+  element.removeEventListener("mousedown", mouse.mousedown);
+  element.removeEventListener("mouseup", mouse.mouseup);
+  element.removeEventListener("wheel", mouse.mousewheel);
+  element.removeEventListener("touchmove", mouse.mousemove);
+  element.removeEventListener("touchstart", mouse.mousedown);
+  element.removeEventListener("touchend", mouse.mouseup);
+}
+
+function isDarkIconColor(hex: string) {
+  const normalizedHex = hex.length === 3 ? hex.replace(/(.)/g, "$1$1") : hex;
+  const red = Number.parseInt(normalizedHex.slice(0, 2), 16);
+  const green = Number.parseInt(normalizedHex.slice(2, 4), 16);
+  const blue = Number.parseInt(normalizedHex.slice(4, 6), 16);
+  const brightness = (red * 299 + green * 587 + blue * 114) / 1000;
+
+  return brightness < 48;
+}
+
+function createIconTexture(data: TechStackItem) {
+  const { icon } = data;
+  const usesCurrentColor = icon.svg.includes("currentColor");
+  const visibleSvg = icon.svg.replaceAll("currentColor", `#${FALLBACK_ICON_COLOR}`);
+  const monochromeSvg = icon.variants.mono;
+  const svg =
+    isDarkIconColor(icon.hex) && !usesCurrentColor && monochromeSvg
+      ? monochromeSvg.replace("<svg ", `<svg fill="#${FALLBACK_ICON_COLOR}" `)
+      : visibleSvg;
+
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
 
 export default function TechStack() {
   const sceneRef = useRef<HTMLDivElement>(null);
-  const engineRef = useRef(Matter.Engine.create());
-  const runnerRef = useRef(Matter.Runner.create());
 
   useEffect(() => {
     const scene = sceneRef.current;
 
     if (!scene) return;
 
+    const engine = Matter.Engine.create();
+    const runner = Matter.Runner.create();
     const userAgent = window.navigator.userAgent.toLowerCase();
     const pixelRatio = window.devicePixelRatio || 1;
+    const usesLargeSpriteScale =
+      (userAgent.includes("safari") && !userAgent.includes("chrome")) || userAgent.includes("instagram");
+    const spriteScale = usesLargeSpriteScale ? 0.25 * (15 / pixelRatio) : 0.25;
+    let width = Math.max(scene.clientWidth, 1);
 
-    // Function to determine the appropriate scale factor based on the browser
-    const getScaleFactor = () => {
-      const baseScale = 0.25;
-      // Check for Safari or Instagram in-app browser
-      if ((userAgent.includes("safari") && !userAgent.includes("chrome")) || userAgent.includes("instagram")) {
-        // Adjust for Safari and iPhone on high-resolution displays
-        return baseScale * (15 / pixelRatio);
-      } else {
-        // Standard scale for other browsers
-        return baseScale;
-      }
-    };
-
-    let width = scene.clientWidth;
-    const height = 240;
-
-    // Create renderer
     const render = Matter.Render.create({
       element: scene,
-      engine: engineRef.current,
+      engine,
       options: {
-        width: width,
-        height: height,
+        width,
+        height: SCENE_HEIGHT,
         wireframes: false,
         background: "transparent",
       },
     });
 
-    // Set initial canvas dimensions and pixel ratio
-    render.canvas.style.width = "100%";
-    render.canvas.style.height = `${height}px`;
     Matter.Render.setPixelRatio(render, pixelRatio);
 
-    // Ground and walls
-    const ground = Matter.Bodies.rectangle(width / 2, height + 40, width, 80, {
-      isStatic: true,
-      render: { fillStyle: "#080808" },
-    });
-    const wallLeft = Matter.Bodies.rectangle(-40, height / 2, 80, height, {
-      isStatic: true,
-      render: { fillStyle: "transparent" },
-    });
-    const wallRight = Matter.Bodies.rectangle(width + 40, height / 2, 80, height, {
-      isStatic: true,
-      render: { fillStyle: "transparent" },
-    });
-    const roof = Matter.Bodies.rectangle(width / 2, -40, width, 80, {
+    const ground = Matter.Bodies.rectangle(
+      width / 2,
+      SCENE_HEIGHT + BOUNDARY_THICKNESS / 2,
+      width,
+      BOUNDARY_THICKNESS,
+      {
+        isStatic: true,
+        render: { fillStyle: "#080808" },
+      },
+    );
+    const wallLeft = Matter.Bodies.rectangle(
+      -BOUNDARY_THICKNESS / 2,
+      SCENE_HEIGHT / 2,
+      BOUNDARY_THICKNESS,
+      SCENE_HEIGHT,
+      {
+        isStatic: true,
+        render: { fillStyle: "transparent" },
+      },
+    );
+    const wallRight = Matter.Bodies.rectangle(
+      width + BOUNDARY_THICKNESS / 2,
+      SCENE_HEIGHT / 2,
+      BOUNDARY_THICKNESS,
+      SCENE_HEIGHT,
+      {
+        isStatic: true,
+        render: { fillStyle: "transparent" },
+      },
+    );
+    const roof = Matter.Bodies.rectangle(width / 2, -BOUNDARY_THICKNESS / 2, width, BOUNDARY_THICKNESS, {
       isStatic: true,
       render: { fillStyle: "transparent" },
     });
 
-    const createCircle = (x: number, y: number, radius: number, texture: string) => {
-      const scaleFactor = getScaleFactor();
-      return Matter.Bodies.circle(x, y, radius, {
+    const shapes = TechStackData.map((data) =>
+      Matter.Bodies.circle(Math.random() * width, Math.random() * SCENE_HEIGHT, BODY_RADIUS, {
         restitution: 0.8,
         render: {
           sprite: {
-            texture: texture,
-            xScale: scaleFactor,
-            yScale: scaleFactor,
+            texture: createIconTexture(data),
+            xScale: spriteScale,
+            yScale: spriteScale,
           },
         },
-      });
-    };
+      }),
+    );
 
-    const shapes = TechStackData.map((data) => {
-      const texture = `${textureBasePath}/${data.fileName}`;
-      return createCircle(Math.random() * width, Math.random() * height, 20, texture);
-    });
+    Matter.Composite.add(engine.world, [ground, wallLeft, wallRight, roof, ...shapes]);
 
-    Matter.World.add(engineRef.current.world, [ground, wallLeft, wallRight, roof, ...shapes]);
-
-    // Mouse control
-    const mouse = Matter.Mouse.create(render.canvas);
-    const mouseConstraint = Matter.MouseConstraint.create(engineRef.current, {
-      mouse: mouse,
+    const mouse = Matter.Mouse.create(render.canvas) as MouseWithHandlers;
+    const mouseConstraint = Matter.MouseConstraint.create(engine, {
+      mouse,
       constraint: {
         stiffness: 0.2,
         render: { visible: false },
       },
     });
 
-    // Remove mouse wheel events to allow scrolling
-    mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
-    mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
+    // Matter.js 0.20 binds `wheel`; removing it lets the page scroll over the canvas.
+    mouse.element.removeEventListener("wheel", mouse.mousewheel);
 
-    Matter.World.add(engineRef.current.world, mouseConstraint);
+    Matter.Composite.add(engine.world, mouseConstraint);
 
-    // Ensure shapes stay within bounds
-    Matter.Events.on(engineRef.current, "beforeUpdate", () => {
+    const keepShapesInBounds = () => {
       shapes.forEach((shape) => {
-        if (shape.position.x < 0 || shape.position.x > width || shape.position.y < 0 || shape.position.y > height) {
+        if (
+          shape.position.x < 0 ||
+          shape.position.x > width ||
+          shape.position.y < 0 ||
+          shape.position.y > SCENE_HEIGHT
+        ) {
           Matter.Body.setPosition(shape, {
             x: Math.random() * width,
-            y: Math.random() * height,
+            y: Math.random() * SCENE_HEIGHT,
           });
           Matter.Body.setVelocity(shape, { x: 0, y: 0 });
         }
       });
-    });
+    };
 
-    // Handle resizing dynamically
+    Matter.Events.on(engine, "beforeUpdate", keepShapesInBounds);
+
     const handleResize = () => {
-      width = scene.clientWidth;
+      const nextWidth = Math.max(scene.clientWidth, 1);
 
-      Matter.Render.setSize(render, width, height);
+      if (nextWidth === width) return;
 
-      // Update positions of walls and ground
-      Matter.Body.setPosition(ground, { x: width / 2, y: height + 40 });
-      Matter.Body.setPosition(wallRight, { x: width + 40, y: height / 2 });
+      const horizontalScale = nextWidth / width;
+      Matter.Body.scale(ground, horizontalScale, 1);
+      Matter.Body.scale(roof, horizontalScale, 1);
+      width = nextWidth;
+
+      Matter.Render.setSize(render, width, SCENE_HEIGHT);
+      Matter.Body.setPosition(ground, {
+        x: width / 2,
+        y: SCENE_HEIGHT + BOUNDARY_THICKNESS / 2,
+      });
+      Matter.Body.setPosition(roof, { x: width / 2, y: -BOUNDARY_THICKNESS / 2 });
+      Matter.Body.setPosition(wallRight, {
+        x: width + BOUNDARY_THICKNESS / 2,
+        y: SCENE_HEIGHT / 2,
+      });
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize();
 
-    Matter.Runner.run(runnerRef.current, engineRef.current);
+    Matter.Runner.run(runner, engine);
     Matter.Render.run(render);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      Matter.Events.off(engine, "beforeUpdate", keepShapesInBounds);
       Matter.Render.stop(render);
-      Matter.Runner.stop(runnerRef.current);
-      Matter.World.clear(engineRef.current.world);
-      Matter.Engine.clear(engineRef.current);
+      Matter.Runner.stop(runner);
+      removeMouseListeners(mouse);
+      Matter.Mouse.clearSourceEvents(mouse);
+      Matter.Composite.clear(engine.world, false, true);
+      Matter.Engine.clear(engine);
       render.canvas.remove();
     };
   }, []);
 
-  return (
-    <div
-      ref={sceneRef}
-      style={{
-        width: "100%",
-        height: "240px",
-        border: "none",
-        padding: "0",
-        margin: "0",
-        outline: "none",
-      }}
-    />
-  );
+  return <div ref={sceneRef} className="h-60 w-full" />;
 }
