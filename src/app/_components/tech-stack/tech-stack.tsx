@@ -4,8 +4,8 @@ import Matter from "matter-js";
 
 import { TechStackData } from "../../_data/tech-stack-data";
 
-// Define the base path for the textures
-const basePath = `${process.env.NEXT_PUBLIC_ASSET_URL}/images/technologies/`;
+const assetUrl = process.env.NEXT_PUBLIC_ASSET_URL?.replace(/\/+$/, "") ?? "";
+const textureBasePath = `${assetUrl}/images/technologies`;
 
 export default function TechStack() {
   const sceneRef = useRef<HTMLDivElement>(null);
@@ -86,7 +86,7 @@ export default function TechStack() {
     };
 
     const shapes = TechStackData.map((data) => {
-      const texture = `${basePath}${data.fileName}`;
+      const texture = `${textureBasePath}/${data.fileName}`;
       return createCircle(Math.random() * width, Math.random() * height, 20, texture);
     });
 
@@ -125,14 +125,7 @@ export default function TechStack() {
     const handleResize = () => {
       width = scene.clientWidth;
 
-      render.options.width = width;
-      render.bounds.max.x = width;
-      render.bounds.max.y = height;
-
-      render.canvas.width = width * pixelRatio;
-      render.canvas.height = height * pixelRatio;
-
-      Matter.Render.setPixelRatio(render, pixelRatio);
+      Matter.Render.setSize(render, width, height);
 
       // Update positions of walls and ground
       Matter.Body.setPosition(ground, { x: width / 2, y: height + 40 });
