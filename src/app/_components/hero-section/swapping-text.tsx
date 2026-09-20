@@ -4,32 +4,49 @@ import { useEffect, useState } from "react";
 
 import { cn } from "cn";
 
+const swappingStyles = [
+  { fontClass: "font-rubik-burned", color: "text-pink-400" },
+  { fontClass: "font-fascinate-inline", color: "text-yellow-400" },
+  { fontClass: "font-flavors", color: "text-violet-400" },
+  { fontClass: "font-protest-revolution", color: "text-cyan-300" },
+  { fontClass: "font-caesar-dressing", color: "text-lime-400" },
+  { fontClass: "font-londrina-sketch", color: "text-red-500" },
+  { fontClass: "font-sedgwick-ave-display", color: "text-orange-500" },
+] as const;
+
 export default function SwappingText() {
-  const styles = [
-    { fontFamily: "font-funky-star", color: "text-[#FF69B4]" },
-    { fontFamily: "font-smokey-brown", color: "text-[#FFD700]" },
-    { fontFamily: "font-lowpoly", color: "text-[#00FFFF]" },
-    { fontFamily: "font-crit-race", color: "text-[#32CD32]" },
-    { fontFamily: "font-letter-sketch", color: "text-[#8B0000]" },
-    { fontFamily: "font-okezone-chamoon", color: "text-[#FF4500]" },
-  ];
   const [styleIndex, setStyleIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setStyleIndex((prevIndex) => (prevIndex + 1) % styles.length);
-    }, 200);
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let interval: ReturnType<typeof setInterval> | undefined;
 
-    return () => clearInterval(interval);
-  }, [styles.length]);
+    const updateAnimation = () => {
+      clearInterval(interval);
 
-  const currentStyle = styles[styleIndex];
+      if (!reducedMotionQuery.matches) {
+        interval = setInterval(() => {
+          setStyleIndex((previousIndex) => (previousIndex + 1) % swappingStyles.length);
+        }, 200);
+      }
+    };
+
+    updateAnimation();
+    reducedMotionQuery.addEventListener("change", updateAnimation);
+
+    return () => {
+      clearInterval(interval);
+      reducedMotionQuery.removeEventListener("change", updateAnimation);
+    };
+  }, []);
+
+  const currentStyle = swappingStyles[styleIndex];
 
   return (
     <p
       className={cn(
-        "absolute top-[50%] left-[50%] -z-[1] -translate-x-1/2 -translate-y-1/2 transform whitespace-nowrap text-6xl md:text-8xl lg:text-13xl",
-        currentStyle.fontFamily,
+        "absolute top-[50%] left-[50%] z-[-1] -translate-x-1/2 -translate-y-1/2 transform whitespace-nowrap text-6xl leading-none md:text-8xl lg:text-13xl",
+        currentStyle.fontClass,
         currentStyle.color,
       )}
     >

@@ -8,7 +8,7 @@ export default function BuildCard() {
         {whatIBuild.map((element, index) => (
           <div
             key={index}
-            className="relative select-none items-center whitespace-nowrap rounded-md bg-darkGrey-700 px-2 py-1 font-helixa-bold text-sm text-white"
+            className="relative select-none items-center whitespace-nowrap rounded-md bg-darkGrey-700 px-2 py-1 font-bold font-google-sans-flex text-sm text-white"
           >
             <div className="absolute top-2/4 left-1 size-4 -translate-y-2/4">
               <span className="mx-auto mt-1 block size-2 rounded-full bg-orange content-['']"></span>

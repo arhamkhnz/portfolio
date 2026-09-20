@@ -9,17 +9,14 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-funky-star: var(--font-local-funky-star);
-  --font-smokey-brown: var(--font-local-smokey-brown);
-  --font-lowpoly: var(--font-local-lowpoly);
-  --font-crit-race: var(--font-local-crit-race);
-  --font-letter-sketch: var(--font-local-letter-sketch);
-  --font-okezone-chamoon: var(--font-local-okezone-chamoon);
-  --font-sinteca: var(--font-local-sinteca);
-  --font-stinker: var(--font-local-stinker);
-  --font-helixa: var(--font-local-helixa);
-  --font-helixa-bold: var(--font-local-helixa-bold);
+  --font-rubik-burned: var(--font-google-rubik-burned);
+  --font-fascinate-inline: var(--font-google-fascinate-inline);
+  --font-flavors: var(--font-google-flavors);
+  --font-protest-revolution: var(--font-google-protest-revolution);
+  --font-caesar-dressing: var(--font-google-caesar-dressing);
+  --font-londrina-sketch: var(--font-google-londrina-sketch);
+  --font-sedgwick-ave-display: var(--font-google-sedgwick-ave-display);
+  --font-google-sans-flex: var(--font-google-sans-flex-variable);
 }
 
 @theme {
