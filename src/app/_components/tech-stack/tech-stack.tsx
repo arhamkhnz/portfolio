@@ -7,6 +7,7 @@ import { TechStackData, type TechStackItem } from "../../_data/tech-stack-data";
 const SCENE_HEIGHT = 240;
 const BOUNDARY_THICKNESS = 80;
 const BODY_RADIUS = 20;
+const ICON_SIZE = BODY_RADIUS * 2;
 
 const FALLBACK_ICON_COLOR = "F7F8FA";
 
@@ -39,6 +40,14 @@ function isDarkIconColor(hex: string) {
   return brightness < 48;
 }
 
+function normalizeIconSize(svg: string) {
+  return svg.replace(/<svg\b([^>]*)>/, (_, attributes: string) => {
+    const normalizedAttributes = attributes.replace(/\s(?:width|height)=(?:"[^"]*"|'[^']*')/g, "");
+
+    return `<svg${normalizedAttributes} width="${ICON_SIZE}" height="${ICON_SIZE}">`;
+  });
+}
+
 function createIconTexture(data: TechStackItem) {
   const { icon } = data;
   const usesCurrentColor = icon.svg.includes("currentColor");
@@ -49,7 +58,7 @@ function createIconTexture(data: TechStackItem) {
       ? monochromeSvg.replace("<svg ", `<svg fill="#${FALLBACK_ICON_COLOR}" `)
       : visibleSvg;
 
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(normalizeIconSize(svg))}`;
 }
 
 export default function TechStack() {
@@ -62,11 +71,7 @@ export default function TechStack() {
 
     const engine = Matter.Engine.create();
     const runner = Matter.Runner.create();
-    const userAgent = window.navigator.userAgent.toLowerCase();
     const pixelRatio = window.devicePixelRatio || 1;
-    const usesLargeSpriteScale =
-      (userAgent.includes("safari") && !userAgent.includes("chrome")) || userAgent.includes("instagram");
-    const spriteScale = usesLargeSpriteScale ? 0.25 * (15 / pixelRatio) : 0.25;
     let width = Math.max(scene.clientWidth, 1);
 
     const render = Matter.Render.create({
@@ -123,8 +128,8 @@ export default function TechStack() {
         render: {
           sprite: {
             texture: createIconTexture(data),
-            xScale: spriteScale,
-            yScale: spriteScale,
+            xScale: 1,
+            yScale: 1,
           },
         },
       }),
