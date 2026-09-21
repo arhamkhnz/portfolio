@@ -10,7 +10,6 @@ import {
   Sedgwick_Ave_Display,
 } from "next/font/google";
 
-import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 
 import { Cursor } from "@/components/cursor";
@@ -132,7 +131,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="fixed -inset-1/2 z-[-1] animate-[bg-animation_0.2s_infinite] bg-[url('/images/noise-transparent.png')] bg-repeat opacity-90" />
         <Cursor />
         {children}
-        <Analytics />
       </body>
     </html>
   );

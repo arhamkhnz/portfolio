@@ -12,7 +12,6 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "@thesvg/icons": "^3.3.8",
-    "@vercel/analytics": "^2.0.1",
     "cn": "^0.3.0",
     "matter-js": "^0.20.0",
     "motion": "^13.4.0",
