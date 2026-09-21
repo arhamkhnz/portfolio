@@ -8,7 +8,7 @@ import {
   WhatsappLogoIcon,
 } from "@phosphor-icons/react/ssr";
 
-export default function SocialCard() {
+export default function SocialLinks() {
   const socials = [
     {
       icon: <EnvelopeIcon size={24} weight="fill" />,

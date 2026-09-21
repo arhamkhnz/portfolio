@@ -1,6 +1,6 @@
 import StrikeThrough from "../../ui/strike-through";
 
-export default function GreetCard() {
+export default function Introduction() {
   return (
     <>
       <p className="font-medium text-3xl text-red-500 tracking-tight lg:text-4xl">Hey, welcome to my site!</p>

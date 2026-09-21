@@ -1,6 +1,6 @@
 import { EnvelopeIcon, WhatsappLogoIcon } from "@phosphor-icons/react/ssr";
 
-export default function CTACard() {
+export default function Contact() {
   return (
     <>
       <div>

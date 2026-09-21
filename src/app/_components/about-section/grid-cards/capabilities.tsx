@@ -1,6 +1,6 @@
 import { whatIBuild } from "../../../_data/what-i-build";
 
-export default function BuildCard() {
+export default function Capabilities() {
   return (
     <>
       <p className="font-medium text-3xl text-red-500 tracking-tight lg:text-4xl">What I Build & Worked On!</p>

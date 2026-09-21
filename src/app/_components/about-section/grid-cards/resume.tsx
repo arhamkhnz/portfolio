@@ -1,6 +1,6 @@
 import { DownloadIcon } from "@phosphor-icons/react/ssr";
 
-export default function ResumeCard() {
+export default function Resume() {
   const path = "/cv/resume-arham-khan.pdf";
 
   const _handleDownload = () => {

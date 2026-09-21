@@ -1,6 +1,6 @@
 import { ImageBrokenIcon } from "@phosphor-icons/react/ssr";
 
-export default function ImageCard() {
+export default function PhotoPlaceholder() {
   return (
     <div className="flex h-full flex-col items-center justify-center">
       <ImageBrokenIcon size={38} className="text-white" />

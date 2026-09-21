@@ -2,7 +2,9 @@
 
 A personal space for my work, projects, and things I enjoy building.
 
-[arham.cc](https://arham.cc)
+This is my old portfolio and contains outdated information. It was last updated in 2023.
+
+A new site is on the way at [arhamkhnz.com](https://arhamkhnz.com).
 
 ## Run Locally
 

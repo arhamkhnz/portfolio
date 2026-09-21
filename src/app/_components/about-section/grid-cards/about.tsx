@@ -1,6 +1,6 @@
 import StrikeThrough from "../../ui/strike-through";
 
-export default function AboutCard() {
+export default function About() {
   return (
     <>
       <p className="font-medium text-3xl text-red-500 tracking-tight lg:text-4xl">Who Am I ?</p>
