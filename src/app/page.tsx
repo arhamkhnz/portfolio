@@ -1,3 +1,5 @@
+import Card from "@/components/card";
+
 import About from "./_components/about-section/grid-cards/about";
 import Capabilities from "./_components/about-section/grid-cards/capabilities";
 import Contact from "./_components/about-section/grid-cards/contact";
@@ -6,7 +8,6 @@ import PhotoPlaceholder from "./_components/about-section/grid-cards/photo-place
 import Resume from "./_components/about-section/grid-cards/resume";
 import SocialLinks from "./_components/about-section/grid-cards/social-links";
 import TechStackOverview from "./_components/about-section/grid-cards/tech-stack-overview";
-import Card from "./_components/card/card";
 import HeroSection from "./_components/hero-section/hero-section";
 import SmoothScrollbar from "./_components/smooth-scrollbar/smooth-scrollbar";
 
