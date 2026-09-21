@@ -1,4 +1,4 @@
-import { FaDownload } from "react-icons/fa6";
+import { DownloadIcon } from "@phosphor-icons/react/ssr";
 
 export default function ResumeCard() {
   const path = "/cv/resume-arham-khan.pdf";
@@ -30,7 +30,7 @@ export default function ResumeCard() {
           className="flex h-12 w-full items-center justify-between rounded-lg bg-white px-4 py-2 font-semibold text-black text-sm duration-200 hover:bg-white/5 hover:text-white"
         >
           Download my CV
-          <FaDownload size={24} />
+          <DownloadIcon size={24} weight="bold" />
         </button>
       </div>
     </>

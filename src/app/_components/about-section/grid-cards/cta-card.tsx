@@ -1,4 +1,4 @@
-import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
+import { EnvelopeIcon, WhatsappLogoIcon } from "@phosphor-icons/react/ssr";
 
 export default function CTACard() {
   return (
@@ -16,7 +16,7 @@ export default function CTACard() {
           rel="noopener"
         >
           Ping Me on WhatsApp
-          <FaWhatsapp size={24} />
+          <WhatsappLogoIcon size={24} weight="fill" />
         </a>
 
         <a
@@ -26,7 +26,7 @@ export default function CTACard() {
           rel="noopener"
         >
           Drop Me an Email
-          <FaEnvelope size={24} />
+          <EnvelopeIcon size={24} weight="fill" />
         </a>
       </div>
     </>

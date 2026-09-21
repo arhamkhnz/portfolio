@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { HiOutlinePlus } from "react-icons/hi2";
+import { PlusIcon } from "@phosphor-icons/react/ssr";
 
 type CardProps = {
   children: ReactNode;
@@ -27,19 +27,19 @@ export default function Card({ children, type, className = "" }: CardProps) {
       {type === "plain" && (
         <>
           <div className="absolute -top-3 -left-3">
-            <HiOutlinePlus color="white" size={24} />
+            <PlusIcon color="white" size={24} />
           </div>
 
           <div className="absolute -top-3 -right-3">
-            <HiOutlinePlus color="white" size={24} />
+            <PlusIcon color="white" size={24} />
           </div>
 
           <div className="absolute -bottom-3 -left-3">
-            <HiOutlinePlus color="white" size={24} />
+            <PlusIcon color="white" size={24} />
           </div>
 
           <div className="absolute -right-3 -bottom-3">
-            <HiOutlinePlus color="white" size={24} />
+            <PlusIcon color="white" size={24} />
           </div>
         </>
       )}

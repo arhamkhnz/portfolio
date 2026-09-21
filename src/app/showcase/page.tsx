@@ -7,10 +7,11 @@ export default function ShowcasePage() {
         href="/"
         className="absolute top-5 left-5 font-google-sans-flex font-medium text-white text-xl leading-none"
       >
-        Arham Khan<span className="inline-block origin-bottom-left scale-[1.8] text-red-500">.</span>
+        Arham Khan
+        <span aria-hidden="true" className="ml-1 inline-block size-1.5 translate-y-px rounded-full bg-red-500" />
       </Link>
 
-      <p className="max-w-2xl text-center font-google-sans-flex text-lg leading-relaxed text-white sm:text-2xl">
+      <p className="max-w-2xl text-center font-google-sans-flex text-lg text-white leading-relaxed sm:text-2xl">
         A new site is on the way at{" "}
         <a href="https://arhamkhnz.com" className="text-red-500 underline underline-offset-4">
           arhamkhnz.com

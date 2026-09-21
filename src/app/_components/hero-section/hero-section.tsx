@@ -21,7 +21,8 @@ export default function HeroSection() {
         </div>
       </div>
       <p className="absolute top-5 left-5 font-google-sans-flex font-medium text-white text-xl leading-none">
-        Arham Khan<span className="text-red-500">.</span>
+        Arham Khan
+        <span aria-hidden="true" className="ml-1 inline-block size-1.5 translate-y-px rounded-full bg-red-500" />
       </p>
 
       <Link

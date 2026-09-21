@@ -1,33 +1,41 @@
-import { FaEnvelope, FaGithub, FaInstagram, FaLinkedin, FaPhone, FaStackOverflow, FaWhatsapp } from "react-icons/fa";
+import {
+  EnvelopeIcon,
+  GithubLogoIcon,
+  InstagramLogoIcon,
+  LinkedinLogoIcon,
+  PhoneIcon,
+  StackOverflowLogoIcon,
+  WhatsappLogoIcon,
+} from "@phosphor-icons/react/ssr";
 
 export default function SocialCard() {
   const socials = [
     {
-      icon: <FaEnvelope size={24} />,
+      icon: <EnvelopeIcon size={24} weight="fill" />,
       href: "mailto:md.arhamkhan09@gmail.com",
     },
     {
-      icon: <FaGithub size={24} />,
+      icon: <GithubLogoIcon size={24} weight="fill" />,
       href: "https://github.com/arhamkhnz",
     },
     {
-      icon: <FaLinkedin size={24} />,
+      icon: <LinkedinLogoIcon size={24} weight="fill" />,
       href: "https://www.linkedin.com/in/mohammed-arham-khan/",
     },
     {
-      icon: <FaInstagram size={24} />,
+      icon: <InstagramLogoIcon size={24} weight="fill" />,
       href: "https://www.instagram.com/arhamkhnz/",
     },
     {
-      icon: <FaStackOverflow size={24} />,
+      icon: <StackOverflowLogoIcon size={24} weight="fill" />,
       href: "https://stackoverflow.com/users/17162742/mohammed-arham-khan",
     },
     {
-      icon: <FaPhone size={24} />,
+      icon: <PhoneIcon size={24} weight="fill" />,
       href: "tel:+916264053892",
     },
     {
-      icon: <FaWhatsapp size={24} />,
+      icon: <WhatsappLogoIcon size={24} weight="fill" />,
       href: "https://wa.me/916264053892",
     },
   ];
