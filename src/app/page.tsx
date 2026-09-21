@@ -15,7 +15,7 @@ export default function Home() {
     <SmoothScrollbar>
       <HeroSection />
 
-      <div className="mx-auto grid w-full max-w-screen-2xl grid-cols-1 gap-8 px-4 pt-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-12 lg:px-8">
+      <div className="mx-auto grid w-full max-w-screen-2xl grid-cols-1 gap-8 px-4 py-3 sm:grid-cols-2 sm:px-6 lg:grid-cols-12 lg:px-8">
         <Card className="lg:col-span-3">
           <Introduction />
         </Card>
