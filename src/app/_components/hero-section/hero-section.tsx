@@ -20,8 +20,8 @@ export default function HeroSection() {
           </p>
         </div>
       </div>
-      <p className="absolute top-5 left-5 font-google-sans-flex font-medium text-white text-xl">
-        Arham Khan<span className="text-4xl text-red-500">.</span>
+      <p className="absolute top-5 left-5 font-google-sans-flex font-medium text-white text-xl leading-none">
+        Arham Khan<span className="text-red-500">.</span>
       </p>
 
       <Link
